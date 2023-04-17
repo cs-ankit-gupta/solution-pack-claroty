@@ -1,0 +1,46 @@
+[
+    {
+        "name": "claroty",
+        "label": "Claroty",
+        "category": "OT & IoT Security",
+        "description": "Claroty CTD is a robust solution that delivers comprehensive cybersecurity controls for industrial environments. This connector provides automated actions like Get Assets, Get Alert, Get Alert Details, etc",
+        "publisher": null,
+        "version": "1.1.0",
+        "operation_roles": [],
+        "configurations": [],
+        "dataImports": []
+    },
+    {
+        "name": "fortinet-fortideceptor",
+        "label": "Fortinet FortiDeceptor",
+        "category": "Network Security",
+        "description": "FortiDeceptor is a deception-based Breach Protection Deceive, Expose and Eliminate External and Internal Threats.",
+        "publisher": null,
+        "operation_roles": [],
+        "configurations": [],
+        "dataImports": [],
+        "install_mode": "rpm"
+    },
+    {
+        "name": "fortinet-fortiedr",
+        "label": "Fortinet FortiEDR",
+        "category": "Endpoint Protection",
+        "description": "FortiEDR protects endpoints pre and post infection, stopping data breaches in real-time and automatically orchestrating incident investigation and response. This connector facilitates the automated operations related to events, forensics and collectors.",
+        "publisher": null,
+        "operation_roles": [],
+        "configurations": [],
+        "dataImports": [],
+        "install_mode": "rpm"
+    },
+    {
+        "name": "servicenow",
+        "label": "ServiceNow",
+        "category": "CMDB",
+        "description": "ServiceNow connector provides functionality to create, read, update and delete records of Table and Catalog type",
+        "publisher": null,
+        "operation_roles": [],
+        "configurations": [],
+        "dataImports": [],
+        "install_mode": "rpm"
+    }
+]

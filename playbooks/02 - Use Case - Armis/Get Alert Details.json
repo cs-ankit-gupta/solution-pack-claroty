@@ -1,0 +1,184 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Get Alert Details",
+    "aliasName": null,
+    "tag": null,
+    "description": "This PB will get Assets",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "collection": "\/api\/3\/workflow_collections\/3bb4552c-051e-43ac-80cd-d7f2c021f1f7",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/10fc0e9a-c937-432f-a4e4-40c79371c921",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "sourceData": "{{vars.input.records[0].sourcedata | toDict}}",
+                "useMockOutput": "{{globalVars.Demo_mode}}"
+            },
+            "status": null,
+            "top": "165",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "group": null,
+            "uuid": "744583b2-0882-40a1-9aca-c41e1ffb3730"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Assets",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.steps.Get_Devices_Details.data.data.results}}",
+                    "parallel": false,
+                    "condition": ""
+                },
+                "arguments": {
+                    "alertIRI": "{{vars.input.records[0]['@id']}}",
+                    "assetRecord": "{{vars.item}}",
+                    "parentAssetIRI": ""
+                },
+                "apply_async": false,
+                "step_variables": {
+                    "cVE": "{{vars.steps.Create_Assets | json_query('[*][\"cVE\"][][]') | unique}}",
+                    "assetIRI": "{{vars.steps.Create_Assets | json_query('[*][\"asset\"][]')}}",
+                    "iCSAdvisory": "{{vars.steps.Create_Assets | json_query('[*][\"iCSAdvisory\"][][]') | unique}}"
+                },
+                "pass_parent_env": false,
+                "pass_input_record": true,
+                "workflowReference": "\/api\/3\/workflows\/94b4ad4e-eb69-473f-9266-f958afe09730"
+            },
+            "status": null,
+            "top": "435",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "group": null,
+            "uuid": "ff785806-4a3d-4407-9a28-f54cb7b28010"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Devices Details",
+            "description": null,
+            "arguments": {
+                "name": "Armis",
+                "config": "e1ef8dae-9a3e-44fb-a96f-a0a08139bf9a",
+                "params": {
+                    "site": "",
+                    "limit": "",
+                    "offset": "",
+                    "device_id": "{{vars.sourceData['deviceIds']}}",
+                    "ip_address": "",
+                    "risk_level": "",
+                    "time_frame": "",
+                    "device_name": "",
+                    "device_type": "",
+                    "mac_address": ""
+                },
+                "version": "1.1.0",
+                "connector": "armis",
+                "operation": "get_devices",
+                "mock_result": "{\n    \"data\": {\n        \"count\": 10,\n        \"next\": 10,\n        \"prev\": null,\n        \"results\": [\n            {\n                \"accessSwitch\": null,\n                \"boundaries\": \"Corporate\",\n                \"businessImpact\": \"Unassigned\",\n                \"category\": \"Computers\",\n                \"customProperties\": {},\n                \"dataSources\": [\n                    {\n                        \"firstSeen\": \"2022-11-20T08:42:15.801626+00:00\",\n                        \"lastSeen\": \"2023-03-09T15:44:19.831935+00:00\",\n                        \"name\": \"Active Directory\",\n                        \"types\": [\n                            \"Asset & System Management\",\n                            \"Identity Provider\"\n                        ]\n                    },\n                    {\n                        \"firstSeen\": \"2021-11-24T08:25:42.525370+00:00\",\n                        \"lastSeen\": \"2023-03-09T21:50:03.841935+00:00\",\n                        \"name\": \"CrowdStrike\",\n                        \"types\": [\n                            \"Agent Based\",\n                            \"Endpoint Protection\"\n                        ]\n                    },\n                    {\n                        \"firstSeen\": \"2022-10-18T08:38:34.823935+00:00\",\n                        \"lastSeen\": \"2023-03-09T20:50:35.823935+00:00\",\n                        \"name\": \"MBAM (BitLocker)\",\n                        \"types\": [\n                            \"Asset & System Management\"\n                        ]\n                    },\n                    {\n                        \"firstSeen\": \"2023-02-25T14:43:06.823935+00:00\",\n                        \"lastSeen\": \"2023-03-09T22:18:28.823935+00:00\",\n                        \"name\": \"Palo Alto Networks GlobalProtect\",\n                        \"types\": [\n                            \"Firewall\"\n                        ]\n                    },\n                    {\n                        \"firstSeen\": \"2022-10-21T13:43:30.823935+00:00\",\n                        \"lastSeen\": \"2023-03-10T00:30:24.823935+00:00\",\n                        \"name\": \"Qualys\",\n                        \"types\": [\n                            \"Vulnerability Management\"\n                        ]\n                    },\n                    {\n                        \"firstSeen\": \"2022-10-18T08:38:34.823935+00:00\",\n                        \"lastSeen\": \"2023-03-09T20:50:35.823935+00:00\",\n                        \"name\": \"SCCM\",\n                        \"types\": [\n                            \"Asset & System Management\",\n                            \"Patch Management\"\n                        ]\n                    },\n                    {\n                        \"firstSeen\": \"2022-10-31T07:24:35.823935+00:00\",\n                        \"lastSeen\": \"2022-10-31T07:28:19.823935+00:00\",\n                        \"name\": \"ServiceNow\",\n                        \"types\": [\n                            \"Asset & System Management\"\n                        ]\n                    },\n                    {\n                        \"firstSeen\": \"2023-03-02T17:00:00.360310+00:00\",\n                        \"lastSeen\": \"2023-03-09T23:11:18.823935+00:00\",\n                        \"name\": \"Traffic Inspection\",\n                        \"types\": [\n                            \"Traffic Inspection\",\n                            \"Data Analysis\"\n                        ]\n                    },\n                    {\n                        \"firstSeen\": \"2022-09-22T07:58:41.319928+00:00\",\n                        \"lastSeen\": \"2023-03-03T01:47:38.319928+00:00\",\n                        \"name\": \"User\",\n                        \"types\": [\n                            \"Data Upload\"\n                        ]\n                    }\n                ],\n                \"firstSeen\": \"2023-03-02T16:59:58.360310+00:00\",\n                \"id\": 2089,\n                \"ipAddress\": \"10.77.27.183\",\n                \"ipv6\": null,\n                \"lastSeen\": \"2023-03-10T19:30:33.823935+00:00\",\n                \"macAddress\": \"50:76:AF:D3:3F:AB\",\n                \"manufacturer\": \"Lenovo\",\n                \"model\": \"ThinkPad X1 Yoga 3rd Gen\",\n                \"name\": \"000000731194pc.corporate.acme.com\",\n                \"operatingSystem\": \"Windows\",\n                \"operatingSystemVersion\": \"10\",\n                \"purdueLevel\": 4,\n                \"riskLevel\": 4,\n                \"sensor\": {\n                    \"name\": \"PALO_ALTO-IDF04-SW01:Gig1\/0\/44 Enterprise\",\n                    \"type\": \"Access Switch\"\n                },\n                \"site\": {\n                    \"location\": \"Palo Alto\",\n                    \"name\": \"Palo Alto Enterprise\"\n                },\n                \"tags\": [\n                    \"Corporate\",\n                    \"SCCM\",\n                    \"ServiceNow\"\n                ],\n                \"type\": \"Laptops\",\n                \"userIds\": [\n                    4\n                ],\n                \"visibility\": \"Full\"\n            },\n            {\n                \"accessSwitch\": null,\n                \"boundaries\": \"ICS\",\n                \"businessImpact\": \"Unassigned\",\n                \"category\": \"Manufacturing Equipment\",\n                \"customProperties\": {},\n                \"dataSources\": [\n                    {\n                        \"firstSeen\": \"2023-01-01T04:15:04.758602+00:00\",\n                        \"lastSeen\": \"2023-01-03T10:08:47.313674+00:00\",\n                        \"name\": \"Active Directory\",\n                        \"types\": [\n                            \"Asset & System Management\",\n                            \"Identity Provider\"\n                        ]\n                    },\n                    {\n                        \"firstSeen\": \"2022-12-30T08:00:08.758602+00:00\",\n                        \"lastSeen\": \"2023-03-07T08:37:21.758602+00:00\",\n                        \"name\": \"MBAM (BitLocker)\",\n                        \"types\": [\n                            \"Asset & System Management\"\n                        ]\n                    },\n                    {\n                        \"firstSeen\": \"2022-12-30T08:00:08.758602+00:00\",\n                        \"lastSeen\": \"2023-03-07T08:37:21.758602+00:00\",\n                        \"name\": \"SCCM\",\n                        \"types\": [\n                            \"Asset & System Management\",\n                            \"Patch Management\"\n                        ]\n                    },\n                    {\n                        \"firstSeen\": \"2022-07-09T03:25:25.934173+00:00\",\n                        \"lastSeen\": \"2023-03-07T05:46:07.758602+00:00\",\n                        \"name\": \"Tanium Interact\",\n                        \"types\": [\n                            \"Agent Based\",\n                            \"Asset & System Management\"\n                        ]\n                    },\n                    {\n                        \"firstSeen\": \"2023-03-02T18:00:00.039276+00:00\",\n                        \"lastSeen\": \"2023-03-09T18:00:00.115775+00:00\",\n                        \"name\": \"Traffic Inspection\",\n                        \"types\": [\n                            \"Traffic Inspection\",\n                            \"Data Analysis\"\n                        ]\n                    },\n                    {\n                        \"firstSeen\": \"2022-06-26T04:59:26.016817+00:00\",\n                        \"lastSeen\": \"2023-03-09T14:17:33.758602+00:00\",\n                        \"name\": \"Cisco WLC\",\n                        \"types\": [\n                            \"WLC\"\n                        ]\n                    }\n                ],\n                \"firstSeen\": \"2022-05-05T23:26:47.578677+00:00\",\n                \"id\": 2080,\n                \"ipAddress\": \"10.207.26.16\",\n                \"ipv6\": null,\n                \"lastSeen\": \"2023-03-10T19:30:32.823935+00:00\",\n                \"macAddress\": \"26:D1:3E:86:A3:11\",\n                \"manufacturer\": \"Lenovo\",\n                \"model\": \"ThinkPad P52\",\n                \"name\": \"engineering workstation\",\n                \"operatingSystem\": \"Windows\",\n                \"operatingSystemVersion\": \"10\",\n                \"purdueLevel\": 2,\n                \"riskLevel\": 4,\n                \"sensor\": {\n                    \"name\": \"Factory 1\",\n                    \"type\": \"Switch\"\n                },\n                \"site\": {\n                    \"location\": \"Austin, TX\",\n                    \"name\": \"TX ICS Center\"\n                },\n                \"tags\": [\n                    \"Purdue\"\n                ],\n                \"type\": \"Engineering Workstations\",\n                \"userIds\": [],\n                \"visibility\": \"Full\"\n            },\n            {\n                \"accessSwitch\": null,\n                \"boundaries\": \"Guest\",\n                \"businessImpact\": \"Unassigned\",\n                \"category\": \"Multimedia\",\n                \"customProperties\": {},\n                \"dataSources\": [],\n                \"firstSeen\": \"2023-02-22T18:27:58.823935+00:00\",\n                \"id\": 2126,\n                \"ipAddress\": \"192.168.10.128\",\n                \"ipv6\": null,\n                \"lastSeen\": \"2023-03-10T19:30:31.823935+00:00\",\n                \"macAddress\": \"53:AA:92:9C:3C:39\",\n                \"manufacturer\": \"Amazon\",\n                \"model\": \"Echo\",\n                \"name\": \"my echo\",\n                \"operatingSystem\": null,\n                \"operatingSystemVersion\": null,\n                \"purdueLevel\": 4,\n                \"riskLevel\": 6,\n                \"sensor\": {\n                    \"name\": \"Medical 2\",\n                    \"type\": \"Wireless LAN Controller\"\n                },\n                \"site\": {\n                    \"location\": \"San Jose, CA\",\n                    \"name\": \"CA Health Center\"\n                },\n                \"tags\": [],\n                \"type\": \"Virtual Assistants\",\n                \"userIds\": [],\n                \"visibility\": \"Full\"\n            }\n        ],\n        \"total\": 3230\n    },\n    \"success\": true\n}",
+                "operationTitle": "Get Devices List",
+                "pickFromTenant": false,
+                "step_variables": []
+            },
+            "status": null,
+            "top": "300",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "group": null,
+            "uuid": "39475abe-a4a6-48ac-a20f-7ec3b84943b3"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "resource": "alerts",
+                "resources": [
+                    "alerts"
+                ],
+                "step_variables": {
+                    "input": {
+                        "params": [],
+                        "records": [
+                            "{{vars.input.records[0]}}"
+                        ]
+                    }
+                },
+                "fieldbasedtrigger": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "primitive",
+                            "field": "source",
+                            "value": "%Armis%",
+                            "operator": "like",
+                            "_operator": "like"
+                        }
+                    ]
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/ea155646-3821-4542-9702-b246da430a8d",
+            "group": null,
+            "uuid": "10fc0e9a-c937-432f-a4e4-40c79371c921"
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Copy of Get Devices",
+            "targetStep": "\/api\/3\/workflow_steps\/39475abe-a4a6-48ac-a20f-7ec3b84943b3",
+            "sourceStep": "\/api\/3\/workflow_steps\/744583b2-0882-40a1-9aca-c41e1ffb3730",
+            "label": null,
+            "isExecuted": false,
+            "group": null,
+            "uuid": "442a32dc-67eb-4ce9-b684-866ea1335057"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Devices Details -> Create Assets",
+            "targetStep": "\/api\/3\/workflow_steps\/ff785806-4a3d-4407-9a28-f54cb7b28010",
+            "sourceStep": "\/api\/3\/workflow_steps\/39475abe-a4a6-48ac-a20f-7ec3b84943b3",
+            "label": null,
+            "isExecuted": false,
+            "group": null,
+            "uuid": "817b9d2a-78f5-4356-a50d-45ef164272b2"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/744583b2-0882-40a1-9aca-c41e1ffb3730",
+            "sourceStep": "\/api\/3\/workflow_steps\/10fc0e9a-c937-432f-a4e4-40c79371c921",
+            "label": null,
+            "isExecuted": false,
+            "group": null,
+            "uuid": "876e72d7-beb1-4f9c-983c-7a679e64a0b4"
+        }
+    ],
+    "groups": [],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "uuid": "cdc47806-c735-47a4-bbe7-ac7ca2aee889",
+    "owners": [],
+    "isPrivate": false,
+    "deletedAt": null,
+    "recordTags": [
+        "Alert",
+        "Armis",
+        "Events",
+        "Links",
+        "PostCreate"
+    ]
+}

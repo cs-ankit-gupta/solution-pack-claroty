@@ -1,0 +1,78 @@
+{
+    "name": "claroty",
+    "version": "1.0.0",
+    "fsrMinCompatibility": "7.3.0",
+    "type": "solutionpack",
+    "local": true,
+    "label": "Claroty",
+    "dependencies": [
+        {
+            "name": "sOARFramework",
+            "type": "solutionpack",
+            "label": "SOAR Framework",
+            "minVersion": null
+        },
+        {
+            "name": "socSimulator",
+            "type": "solutionpack",
+            "label": "SOC Simulator",
+            "minVersion": null
+        },
+        {
+            "name": "oT-AssetManagement",
+            "type": "solutionpack",
+            "label": "OT - Asset Management",
+            "minVersion": null
+        },
+        {
+            "name": "oT-VulnerabilityManagement",
+            "type": "solutionpack",
+            "label": "OT - Vulnerability Management",
+            "minVersion": null
+        }
+    ],
+    "prerequisite": null,
+    "publisher": "Community",
+    "description": "",
+    "help": null,
+    "category": [],
+    "supportInfo": null,
+    "iconLarge": null,
+    "postInstallConfig": null,
+    "date": "2023-04-17T16:39:49+00:00",
+    "contents": {
+        "playbooks": [
+            {
+                "name": "02 - Use Case - Armis"
+            }
+        ],
+        "globalVariables": [
+            {
+                "id": 16,
+                "name": "Demo_mode",
+                "value": "true",
+                "default_value": "false"
+            }
+        ],
+        "playbookBlocks": [],
+        "connectors": [
+            {
+                "name": "Claroty",
+                "apiName": "claroty",
+                "version": "1.1.0"
+            },
+            {
+                "name": "Fortinet FortiDeceptor",
+                "apiName": "fortinet-fortideceptor"
+            },
+            {
+                "name": "Fortinet FortiEDR",
+                "apiName": "fortinet-fortiedr"
+            },
+            {
+                "name": "ServiceNow",
+                "apiName": "servicenow"
+            }
+        ]
+    }
+}

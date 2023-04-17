@@ -1,0 +1,127 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Get All Assets (1)",
+    "aliasName": null,
+    "tag": null,
+    "description": "Retrieve all the from Nozomi",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "collection": "\/api\/3\/workflow_collections\/3bb4552c-051e-43ac-80cd-d7f2c021f1f7",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/6300c72c-4442-4dba-8afc-36d3b64936b2",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Asset Record",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.steps.Get_All_Assets.data.result}}",
+                    "parallel": false,
+                    "condition": ""
+                },
+                "arguments": {
+                    "assetRecord": "{{vars.item}}"
+                },
+                "apply_async": true,
+                "step_variables": [],
+                "pass_parent_env": false,
+                "pass_input_record": false,
+                "workflowReference": "\/api\/3\/workflows\/9eb98a74-ab4e-4c7b-8ea9-5577ff7eb8ac"
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "group": null,
+            "uuid": "09e19fe4-f39a-4cdf-801f-d29b36b1dedf"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get All Assets",
+            "description": null,
+            "arguments": {
+                "name": "Nozomi Networks Guardian",
+                "config": "3301581d-6006-4824-bbbc-c5473f82b67c",
+                "params": [],
+                "version": "1.1.0",
+                "connector": "nozomi-networks-guardian",
+                "operation": "get_assets",
+                "operationTitle": "Get Assets",
+                "pickFromTenant": false,
+                "step_variables": []
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "group": null,
+            "uuid": "70ed5f39-958c-4957-9ac8-1b236da0bd42"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "db1ebe0c-f919-4b42-96d7-e1a58519c824",
+                "resources": [
+                    "assets"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "params": [],
+                        "records": "{{vars.input.records}}"
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "group": null,
+            "uuid": "6300c72c-4442-4dba-8afc-36d3b64936b2"
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get All Assets -> Create Asset Record",
+            "targetStep": "\/api\/3\/workflow_steps\/09e19fe4-f39a-4cdf-801f-d29b36b1dedf",
+            "sourceStep": "\/api\/3\/workflow_steps\/70ed5f39-958c-4957-9ac8-1b236da0bd42",
+            "label": null,
+            "isExecuted": false,
+            "group": null,
+            "uuid": "26249d57-4602-47ab-9452-b996913705f4"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get All Assets",
+            "targetStep": "\/api\/3\/workflow_steps\/70ed5f39-958c-4957-9ac8-1b236da0bd42",
+            "sourceStep": "\/api\/3\/workflow_steps\/6300c72c-4442-4dba-8afc-36d3b64936b2",
+            "label": null,
+            "isExecuted": false,
+            "group": null,
+            "uuid": "f848e91e-b900-45b7-8627-c07a0342df51"
+        }
+    ],
+    "groups": [],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "uuid": "698f6c8b-7f4a-4b05-8e4a-03a9307201b4",
+    "owners": [],
+    "isPrivate": false,
+    "deletedAt": null,
+    "recordTags": [
+        "Assets",
+        "ManualTrigger",
+        "Nozomi"
+    ]
+}
